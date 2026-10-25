@@ -1,0 +1,24 @@
+{
+  "id": "./",
+  "name": "ACcut",
+  "short_name": "ACcut",
+  "description": "ACcut: one-tap shortcuts to AI tools, coding, web development, Java, Japan exams & careers, and entertainment sites.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#05030f",
+  "theme_color": "#05030f",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["productivity", "utilities", "education"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "screenshots": [
+    { "src": "screenshots/wide.png", "sizes": "1280x720", "type": "image/png", "form_factor": "wide", "label": "ACcut on a laptop" },
+    { "src": "screenshots/narrow.png", "sizes": "390x844", "type": "image/png", "form_factor": "narrow", "label": "ACcut on a phone" }
+  ]
+}
