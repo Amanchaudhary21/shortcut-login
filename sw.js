@@ -1,6 +1,6 @@
-// ACcut service worker: lets the app open offline and load fast.
+// Orbit-ac service worker: lets the app open offline and load fast.
 // Bump CACHE_VERSION whenever index.html, style.css or script.js change, so users get the update.
-const CACHE_VERSION = 'accut-v1';
+const CACHE_VERSION = 'orbit-ac-v2';
 const APP_FILES = [
   './',
   './index.html',
