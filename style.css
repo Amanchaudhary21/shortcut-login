@@ -4,46 +4,107 @@ body {
   color: #e0e7ff;
 }
 
-/* Space background: nebula glows behind a twinkling starfield, fixed while the page scrolls */
+/* Space background, fixed while the page scrolls:
+   body::before = nebula glows, body::after = near star layer,
+   .space::before = far star layer, .space span = shooting stars */
 body::before,
-body::after {
+body::after,
+.space,
+.space::before {
   content: "";
   position: fixed;
-  inset: 0;
   z-index: -1;
   pointer-events: none;
 }
 body::before {
+  /* Oversized so the slow drift never shows an edge */
+  inset: -15%;
   background:
-    radial-gradient(ellipse 60% 45% at 15% 20%, rgba(124, 58, 237, 0.35), transparent 70%),
-    radial-gradient(ellipse 50% 40% at 85% 35%, rgba(219, 39, 119, 0.22), transparent 70%),
-    radial-gradient(ellipse 70% 50% at 60% 90%, rgba(37, 99, 235, 0.25), transparent 70%),
-    radial-gradient(ellipse at 50% 50%, #0d0826, #05030f 80%);
+    radial-gradient(ellipse 45% 35% at 25% 30%, rgba(124, 58, 237, 0.35), transparent 70%),
+    radial-gradient(ellipse 40% 30% at 75% 40%, rgba(219, 39, 119, 0.22), transparent 70%),
+    radial-gradient(ellipse 55% 40% at 55% 80%, rgba(37, 99, 235, 0.25), transparent 70%),
+    radial-gradient(ellipse at 50% 50%, #0d0826, #05030f 70%);
+  animation: nebula-drift 40s ease-in-out infinite alternate;
 }
+@keyframes nebula-drift {
+  from { transform: translate(0, 0) scale(1) rotate(0deg); }
+  50% { transform: translate(-3%, 2%) scale(1.08) rotate(2deg); }
+  to { transform: translate(3%, -2%) scale(1.04) rotate(-2deg); }
+}
+
+/* Star layers are one tile larger than the screen and move exactly one tile, so the loop is seamless */
 body::after {
-  /* Three tiled star layers of different sizes so the repeat isn't noticeable */
+  inset: -300px 0 0 -300px;
   background-image:
     radial-gradient(1.6px 1.6px at 20px 30px, #fff, transparent),
     radial-gradient(1.6px 1.6px at 120px 80px, rgba(255, 255, 255, 0.8), transparent),
     radial-gradient(2px 2px at 170px 150px, #fff, transparent),
     radial-gradient(1.6px 1.6px at 60px 170px, rgba(255, 255, 255, 0.7), transparent),
     radial-gradient(1.6px 1.6px at 90px 260px, rgba(199, 210, 254, 0.9), transparent),
-    radial-gradient(2px 2px at 250px 40px, rgba(255, 255, 255, 0.9), transparent),
-    radial-gradient(1.6px 1.6px at 280px 210px, rgba(255, 255, 255, 0.6), transparent),
-    radial-gradient(2.5px 2.5px at 330px 300px, rgba(233, 213, 255, 0.9), transparent),
-    radial-gradient(1.6px 1.6px at 400px 120px, #fff, transparent),
-    radial-gradient(2px 2px at 440px 380px, rgba(191, 219, 254, 0.9), transparent);
-  background-size: 300px 300px, 300px 300px, 300px 300px, 300px 300px, 300px 300px,
-    470px 470px, 470px 470px, 470px 470px, 470px 470px, 470px 470px;
-  animation: twinkle 6s ease-in-out infinite alternate;
+    radial-gradient(2.5px 2.5px at 230px 250px, rgba(233, 213, 255, 0.9), transparent);
+  background-size: 300px 300px;
+  animation:
+    stars-near 90s linear infinite,
+    twinkle 6s ease-in-out infinite alternate;
+}
+.space {
+  inset: 0;
+  overflow: hidden;
+}
+.space::before {
+  inset: -470px 0 0 -470px;
+  background-image:
+    radial-gradient(1.2px 1.2px at 250px 40px, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(1.2px 1.2px at 280px 210px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(1.5px 1.5px at 330px 300px, rgba(233, 213, 255, 0.8), transparent),
+    radial-gradient(1.2px 1.2px at 400px 120px, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 440px 380px, rgba(191, 219, 254, 0.9), transparent),
+    radial-gradient(1px 1px at 100px 420px, rgba(255, 255, 255, 0.7), transparent);
+  background-size: 470px 470px;
+  opacity: 0.7;
+  animation: stars-far 200s linear infinite;
+}
+@keyframes stars-near {
+  to { transform: translate(300px, 300px); }
+}
+@keyframes stars-far {
+  to { transform: translate(470px, 470px); }
 }
 @keyframes twinkle {
   from { opacity: 0.55; }
   to { opacity: 1; }
 }
+
+/* Shooting stars: a bright streak that flies down-left, then waits before the next one */
+.shooting-star {
+  position: absolute;
+  width: 140px;
+  height: 2px;
+  border-radius: 9999px;
+  background: linear-gradient(to right, #fff, rgba(192, 132, 252, 0.6) 30%, transparent);
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
+  opacity: 0;
+  animation: shoot 9s ease-out infinite;
+}
+.shooting-star:nth-child(1) { top: 8%; left: 85%; animation-delay: 1s; }
+.shooting-star:nth-child(2) { top: 20%; left: 60%; animation-delay: 4.5s; animation-duration: 11s; }
+.shooting-star:nth-child(3) { top: 2%; left: 40%; animation-delay: 8s; animation-duration: 13s; }
+@keyframes shoot {
+  0% { opacity: 0; transform: rotate(-35deg) translateX(0); }
+  1% { opacity: 1; }
+  8% { opacity: 0; transform: rotate(-35deg) translateX(-700px); }
+  100% { opacity: 0; transform: rotate(-35deg) translateX(-700px); }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  body::after {
-    animation: none;
+  body::before,
+  body::after,
+  .space::before,
+  .shooting-star,
+  .tool-grid.orbit,
+  .ring-center,
+  .ring-center .emoji {
+    animation: none !important;
   }
 }
 .section-title {
@@ -151,6 +212,12 @@ html {
   }
 }
 /* Orbit layout: tools placed around a circle (added by script.js) */
+/* --spin is registered so it can be animated; it turns the whole ring */
+@property --spin {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0deg;
+}
 .tool-grid.orbit {
   /* Fill the phone width (minus page padding), up to 380px */
   --ring-size: min(380px, calc(100vw - 32px));
@@ -160,6 +227,16 @@ html {
   width: var(--ring-size);
   aspect-ratio: 1;
   margin: 0 auto 1.5rem;
+  animation: orbit-spin 60s linear infinite;
+}
+/* Stop turning while the visitor is over the ring, tabbing through it, or touching it */
+.tool-grid.orbit:hover,
+.tool-grid.orbit:focus-within,
+.tool-grid.orbit.paused {
+  animation-play-state: paused;
+}
+@keyframes orbit-spin {
+  to { --spin: 360deg; }
 }
 /* Faint guide circle the tools sit on */
 .tool-grid.orbit::before {
@@ -168,15 +245,18 @@ html {
   inset: 46px;
   border-radius: 50%;
   border: 1px dashed rgba(192, 132, 252, 0.3);
+  transform: rotate(var(--spin));
 }
 .orbit .card {
+  --turn: calc(var(--angle) + var(--spin));
   position: absolute;
   left: 50%;
   top: 50%;
   width: 80px;
   margin: -29px 0 0 -40px;
   padding: 0;
-  transform: rotate(var(--angle)) translate(var(--radius)) rotate(calc(-1 * var(--angle)));
+  /* Move out along the turned angle, then turn back so icons stay upright */
+  transform: rotate(var(--turn)) translate(var(--radius)) rotate(calc(-1 * var(--turn)));
 }
 .orbit .tool-icon {
   width: 58px;
@@ -205,6 +285,7 @@ html {
   background: radial-gradient(circle, rgba(147, 51, 234, 0.35), rgba(30, 27, 75, 0.6));
   border: 2px solid rgba(219, 39, 119, 0.5);
   box-shadow: 0 0 30px rgba(192, 132, 252, 0.25);
+  animation: center-glow 3s ease-in-out infinite alternate;
 }
 .ring-center .section-title {
   margin: 0;
@@ -215,6 +296,21 @@ html {
   display: block;
   font-size: 1.6rem;
   margin-bottom: 0.2rem;
+  animation: emoji-float 2.5s ease-in-out infinite alternate;
+}
+@keyframes center-glow {
+  from {
+    box-shadow: 0 0 18px rgba(192, 132, 252, 0.2);
+    border-color: rgba(219, 39, 119, 0.4);
+  }
+  to {
+    box-shadow: 0 0 45px rgba(192, 132, 252, 0.5), inset 0 0 20px rgba(219, 39, 119, 0.25);
+    border-color: rgba(240, 171, 252, 0.8);
+  }
+}
+@keyframes emoji-float {
+  from { transform: translateY(2px); }
+  to { transform: translateY(-4px); }
 }
 @media (min-width: 768px) {
   .tool-grid.orbit {
@@ -395,5 +491,31 @@ html {
     font-size: 0.65rem;
     max-width: 66px;
     margin: 0 auto;
+  }
+}
+/* Phones: icon size follows the ring size, so small screens (320-375px) don't get overlapping icons */
+@media (max-width: 767px) {
+  .tool-grid.orbit {
+    --icon: clamp(44px, calc(var(--ring-size) * 0.17), 58px);
+  }
+  .tool-grid.orbit.crowded {
+    --icon: clamp(38px, calc(var(--ring-size) * 0.145), 50px);
+  }
+  .orbit .tool-icon,
+  .orbit.crowded .tool-icon {
+    width: var(--icon);
+    height: var(--icon);
+  }
+  .orbit .tool-icon img,
+  .orbit.crowded .tool-icon img {
+    width: calc(var(--icon) * 0.52);
+    height: calc(var(--icon) * 0.52);
+  }
+  .orbit .card,
+  .orbit.crowded .card {
+    margin-top: calc(var(--icon) / -2);
+  }
+  .orbit.crowded .tool-name {
+    max-width: calc(var(--ring-size) * 0.19);
   }
 }

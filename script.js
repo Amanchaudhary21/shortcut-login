@@ -31,6 +31,13 @@ document.querySelectorAll('.tool-grid').forEach(grid => {
   grid.classList.add('orbit');
   // Sections with many tools get slightly smaller icons so labels don't overlap
   grid.classList.toggle('crowded', cards.length > 8);
+
+  // Phones have no hover: stop the ring on touch, and let it turn again after a few seconds
+  grid.addEventListener('touchstart', () => {
+    grid.classList.add('paused');
+    clearTimeout(grid.resumeTimer);
+    grid.resumeTimer = setTimeout(() => grid.classList.remove('paused'), 4000);
+  }, { passive: true });
 });
 
 // Category chips: highlight the section in view
