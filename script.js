@@ -1,86 +1,73 @@
- // Set year
-    document.getElementById('year').textContent = new Date().getFullYear();
+// Round tool icons: add each site's logo, falling back to its first letter
+document.querySelectorAll('.card').forEach(card => {
+  const name = card.querySelector('.tool-name').textContent.trim();
+  const icon = document.createElement('span');
+  icon.className = 'tool-icon';
+  icon.setAttribute('aria-hidden', 'true');
 
-    // Search functionality
-    const searchInput = document.getElementById('searchInput');
-    const allCards = document.querySelectorAll('.card');
+  const img = document.createElement('img');
+  img.src = `https://www.google.com/s2/favicons?domain=${new URL(card.href).hostname}&sz=128`;
+  img.alt = '';
+  img.loading = 'lazy';
+  img.onerror = () => { icon.textContent = name.charAt(0); };
+  icon.appendChild(img);
 
-    searchInput.addEventListener('input', () => {
-      const query = searchInput.value.toLowerCase().trim();
-      allCards.forEach(card => {
-        const text = card.textContent.toLowerCase();
-        card.style.display = text.includes(query) ? 'block' : 'none';
-      });
+  card.prepend(icon);
+  card.title = name;
+});
 
-      // Hide sections if no cards visible
-      document.querySelectorAll('section.mb-16').forEach(section => {
-        const visibleCards = Array.from(section.querySelectorAll('.card')).filter(c => c.style.display !== 'none');
-        section.style.display = visibleCards.length > 0 ? 'block' : 'none';
-      });
-    });
+// Arrange each section's tools in a ring, with the section title in the middle
+document.querySelectorAll('.tool-grid').forEach(grid => {
+  const cards = grid.querySelectorAll('.card');
+  cards.forEach((card, i) => {
+    // Start at the top (-90deg) and go clockwise
+    card.style.setProperty('--angle', `${(i * 360) / cards.length - 90}deg`);
+  });
 
-    // Login Modal
-    const loginBtn = document.getElementById('loginBtn');
-    const loginModal = document.getElementById('loginModal');
-    const closeLoginModal = document.getElementById('closeLoginModal');
-    const loginForm = document.getElementById('loginForm');
-    const loginMessage = document.getElementById('loginMessage');
+  const center = document.createElement('div');
+  center.className = 'ring-center';
+  center.appendChild(grid.closest('section').querySelector('.section-title'));
+  grid.prepend(center);
+  grid.classList.add('orbit');
+  // Sections with many tools get slightly smaller icons so labels don't overlap
+  grid.classList.toggle('crowded', cards.length > 8);
+});
 
-    loginBtn.addEventListener('click', () => {
-      loginModal.classList.remove('hidden');
-    });
+// Category chips: highlight the section in view
+const sections = document.querySelectorAll('.bookmark-section');
+const chips = document.querySelectorAll('.chip');
 
-    closeLoginModal.addEventListener('click', () => {
-      loginModal.classList.add('hidden');
-    });
+function setActiveChip(id) {
+  chips.forEach(chip => {
+    const active = chip.getAttribute('href') === `#${id}`;
+    if (active && chip.classList.contains('active')) return;
+    chip.classList.toggle('active', active);
+    // Keep the active chip visible in the scrollable chip row on phones
+    if (active) chip.parentElement.scrollTo({ left: chip.offsetLeft - 16, behavior: 'smooth' });
+  });
+}
 
-    loginForm.addEventListener('submit', e => {
-      e.preventDefault();
-      loginMessage.textContent = 'Logged in successfully! (Demo)';
-      setTimeout(() => {
-        loginModal.classList.add('hidden');
-        loginForm.reset();
-        loginMessage.textContent = '';
-      }, 2000);
-    });
+const sectionObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) setActiveChip(entry.target.id);
+  });
+}, { rootMargin: '-40% 0px -55% 0px' });
 
-    // Contact Modal
-    const contactBtn = document.getElementById('contactBtn');
-    const contactModal = document.getElementById('contactModal');
-    const closeContactModal = document.getElementById('closeContactModal');
-    const contactForm = document.getElementById('contactForm');
-    const formMessage = document.getElementById('formMessage');
+sections.forEach(section => sectionObserver.observe(section));
 
-    contactBtn.addEventListener('click', () => {
-      contactModal.classList.remove('hidden');
-    });
+// The last section can't scroll up into the middle band, so highlight it when at the bottom
+window.addEventListener('scroll', () => {
+  const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+  if (atBottom) setActiveChip(sections[sections.length - 1].id);
+}, { passive: true });
 
-    closeContactModal.addEventListener('click', () => {
-      contactModal.classList.add('hidden');
-    });
+// Back to Top
+const backToTop = document.getElementById('backToTop');
 
-    contactForm.addEventListener('submit', e => {
-      e.preventDefault();
-      formMessage.textContent = 'Message sent! (Demo)';
-      setTimeout(() => {
-        contactModal.classList.add('hidden');
-        contactForm.reset();
-        formMessage.textContent = '';
-      }, 2000);
-    });
+window.addEventListener('scroll', () => {
+  backToTop.classList.toggle('visible', window.scrollY > 200);
+}, { passive: true });
 
-    // Back to Top
-    const backToTop = document.getElementById('backToTop');
-
-    window.onscroll = () => {
-      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-        backToTop.style.display = "block";
-      } else {
-        backToTop.style.display = "none";
-      }
-    };
-
-    function scrollToTop() {
-      document.body.scrollTop = 0;
-      document.documentElement.scrollTop = 0;
-    }
+backToTop.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});

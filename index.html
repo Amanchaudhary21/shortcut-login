@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Aman Chaudhary's bookmark hub for AI tools, coding, Java, web development and Japanese resources.">
   <title>Aman Chaudhary - Coding & AI Hub</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -11,178 +12,125 @@
 <body class="min-h-screen font-sans">
 
   <!-- Navbar -->
-  <nav class="navbar fixed top-0 left-0 w-full z-50 py-4 px-6 flex items-center justify-between border-b border-indigo-800/30">
-    <div class="text-2xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">Aman Hub</div>
-    <div class="flex items-center gap-4">
-      <button id="loginBtn" class="text-sm px-4 py-2 bg-green-600 hover:bg-green-500 rounded-full transition">Login</button>
-      <button id="contactBtn" class="text-sm px-4 py-2 bg-purple-600 hover:bg-purple-500 rounded-full transition">Contact</button>
+  <nav class="navbar fixed top-0 left-0 w-full z-40 border-b border-indigo-800/30">
+    <div class="nav-inner max-w-6xl mx-auto px-4 md:px-8 py-3">
+      <a href="#" class="shrink-0 justify-self-start flex items-center gap-2" aria-label="Aman Hub, back to top">
+        <img src="amn.jpg" alt="" width="36" height="36" class="w-9 h-9 rounded-full object-cover border-2 border-purple-500">
+        <span class="hidden lg:inline text-xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">Aman Hub</span>
+      </a>
+
+      <!-- Category quick-jump -->
+      <div class="chip-row" role="list">
+        <a href="#ai" class="chip" role="listitem">🤖 AI</a>
+        <a href="#coding" class="chip" role="listitem">💻 Coding</a>
+        <a href="#webdev" class="chip" role="listitem">🌐 Web Dev</a>
+        <a href="#java" class="chip" role="listitem">☕ Java</a>
+        <a href="#japan" class="chip" role="listitem">Japan</a>
+        <a href="#general" class="chip" role="listitem">🎬 Entertainment</a>
+      </div>
     </div>
   </nav>
 
-  <!-- Login Modal -->
-  <div id="loginModal" class="fixed inset-0 bg-black/70 hidden flex items-center justify-center z-50">
-    <div class="bg-gray-800 p-8 rounded-xl max-w-md w-full mx-4">
-      <h2 class="text-2xl font-bold mb-6 text-white text-center">Login</h2>
-      <form id="loginForm" class="space-y-4">
-        <input type="email" placeholder="Email" required class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-purple-500">
-        <input type="password" placeholder="Password" required class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-purple-500">
-        <button type="submit" class="w-full py-3 bg-purple-600 hover:bg-purple-500 rounded-lg font-bold text-white transition">Sign In</button>
-      </form>
-      <button id="closeLoginModal" class="mt-4 w-full text-center text-gray-400 hover:text-white">Close</button>
-      <p id="loginMessage" class="text-center mt-4 text-green-400"></p>
-    </div>
-  </div>
-
-  <!-- Contact Modal -->
-  <div id="contactModal" class="fixed inset-0 bg-black/70 hidden flex items-center justify-center z-50">
-    <div class="bg-gray-800 p-8 rounded-xl max-w-md w-full mx-4">
-      <h2 class="section-title text-2xl font-bold mb-6 text-center">Contact Me</h2>
-      <form id="contactForm" class="space-y-4">
-        <input type="text" placeholder="Full Name" required class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-purple-500">
-        <input type="email" placeholder="Email Address" required class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-purple-500">
-        <textarea rows="5" placeholder="Your Message..." required class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-purple-500 resize-none"></textarea>
-        <button type="submit" class="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 rounded-lg font-bold text-white transition">Send Message</button>
-      </form>
-      <button id="closeContactModal" class="mt-4 w-full text-center text-gray-400 hover:text-white">Close</button>
-      <p id="formMessage" class="text-center mt-4 text-green-400"></p>
-    </div>
-  </div>
-
-  <!-- Hero Section -->
-  <header class="hero-bg pt-24 pb-16 text-center px-4 md:px-8">
-    <div class="max-w-4xl mx-auto">
-      <img src="amn.jpg" alt="Aman Chaudhary" class="w-40 h-40 md:w-48 md:h-48 rounded-full mx-auto mb-6 object-cover border-4 border-purple-500 shadow-2xl">
-      <h1 class="text-4xl md:text-5xl font-extrabold mb-4 bg-gradient-to-r from-pink-500 via-purple-400 to-cyan-400 bg-clip-text text-transparent">Aman Chaudhary</h1>
-      <p class="text-xl md:text-2xl text-purple-300 mb-6">Nepal → Japan | Aspiring System Engineer</p>
-      <p class="text-lg max-w-2xl mx-auto leading-relaxed text-gray-300">
-        コーディングは、問題解決力を高め、アイデアを形にする力を育てます。<br>
-        実践的な学習とプロジェクトでスキルを伸ばしましょう。
-      </p>
-    </div>
-  </header>
-
   <!-- Main Content -->
-  <main class="max-w-6xl mx-auto px-4 md:px-8 py-12">
-    
-    <!-- Search Bar -->
-    <div class="mb-12">
-      <input 
-        type="text" 
-        id="searchInput" 
-        placeholder="Search bookmarks (e.g., ChatGPT, Java, JLPT...)" 
-        class="w-full p-4 text-lg bg-gray-800/50 border border-purple-700/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 placeholder-gray-400"
-      >
-    </div>
+  <main class="max-w-6xl mx-auto px-4 md:px-8 pt-24 pb-8">
+    <h1 class="sr-only">Aman Hub: quick links</h1>
+
 
     <!-- Bookmarks Sections -->
-    <div id="bookmarks">
-      
+    <div id="bookmarks" class="grid grid-cols-1 lg:grid-cols-2 gap-x-8">
+
       <!-- AI Tools -->
-      <section class="mb-16">
-        <h2 class="section-title text-3xl font-bold mb-6">🤖 AI Tools</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" data-category="ai">
-          <a href="https://chat.openai.com" target="_blank" class="card ai-card p-6 rounded-xl"><span class="font-semibold">ChatGPT</span></a>
-          <a href="https://chat.deepseek.com/" target="_blank" class="card ai-card p-6 rounded-xl"><span class="font-semibold">DeepSeek</span></a>
-          <a href="https://grok.com/" target="_blank" class="card ai-card p-6 rounded-xl"><span class="font-semibold">Grok</span></a>
-          <a href="https://gemini.google.com" target="_blank" class="card ai-card p-6 rounded-xl"><span class="font-semibold">Gemini</span></a>
-          <a href="https://claude.com/" target="_blank" class="card ai-card p-6 rounded-xl"><span class="font-semibold">Cloud Ai</span></a>
-          <a href="https://www.perplexity.ai/" target="_blank" class="card ai-card p-6 rounded-xl"><span class="font-semibold">Perplexity</span></a>
-          <a href="https://lovable.dev/" target="_blank" class="card ai-card p-6 rounded-xl"><span class="font-semibold">Lovable</span></a>
-         
+      <section id="ai" class="bookmark-section mb-12">
+        <h2 class="section-title mb-5"><span class="emoji" aria-hidden="true">🤖</span> AI Tools</h2>
+        <div class="tool-grid">
+          <a href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer" class="card ai-card"><span class="tool-name">ChatGPT</span></a>
+          <a href="https://chat.deepseek.com/" target="_blank" rel="noopener noreferrer" class="card ai-card"><span class="tool-name">DeepSeek</span></a>
+          <a href="https://grok.com/" target="_blank" rel="noopener noreferrer" class="card ai-card"><span class="tool-name">Grok</span></a>
+          <a href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer" class="card ai-card"><span class="tool-name">Gemini</span></a>
+          <a href="https://claude.ai/" target="_blank" rel="noopener noreferrer" class="card ai-card"><span class="tool-name">Claude</span></a>
+          <a href="https://www.perplexity.ai/" target="_blank" rel="noopener noreferrer" class="card ai-card"><span class="tool-name">Perplexity</span></a>
+          <a href="https://lovable.dev/" target="_blank" rel="noopener noreferrer" class="card ai-card"><span class="tool-name">Lovable</span></a>
+        </div>
       </section>
 
       <!-- Coding & Learning -->
-      <section class="mb-16">
-        <h2 class="section-title text-3xl font-bold mb-6">💻 Coding & Learning</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" data-category="coding">
-          <a href="https://github.com" target="_blank" class="card coding-card p-6 rounded-xl"><span class="font-semibold">GitHub</span></a>
-          <a href="https://app.netlify.com" target="_blank" class="card coding-card p-6 rounded-xl"><span class="font-semibold">Netlify</span></a>
-          <a href="https://vercel.com" target="_blank" class="card coding-card p-6 rounded-xl"><span class="font-semibold">Vercel</span></a>
-          <a href="https://www.hostinger.com/" target="_blank" class="card coding-card p-6 rounded-xl"><span class="font-semibold">Hostinger</span></a>
-          <a href="https://www.udemy.com/" target="_blank" class="card coding-card p-6 rounded-xl"><span class="font-semibold">Udemy</span></a>
-          <a href="https://www.w3schools.com/" target="_blank" class="card coding-card p-6 rounded-xl"><span class="font-semibold">W3Schools</span></a>
-          <a href="https://overapi.com/" target="_blank" class="card coding-card p-6 rounded-xl"><span class="font-semibold">OverAPI</span></a>
-          <a href="https://www.hackerrank.com" target="_blank" class="card coding-card p-6 rounded-xl"><span class="font-semibold">HackerRank</span></a>
-          <a href="https://leetcode.com/" target="_blank" class="card coding-card p-6 rounded-xl"><span class="font-semibold">LeetCode</span></a>
+      <section id="coding" class="bookmark-section mb-12">
+        <h2 class="section-title mb-5"><span class="emoji" aria-hidden="true">💻</span> Coding & Learning</h2>
+        <div class="tool-grid">
+          <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="card coding-card"><span class="tool-name">GitHub</span></a>
+          <a href="https://app.netlify.com/" target="_blank" rel="noopener noreferrer" class="card coding-card"><span class="tool-name">Netlify</span></a>
+          <a href="https://vercel.com/" target="_blank" rel="noopener noreferrer" class="card coding-card"><span class="tool-name">Vercel</span></a>
+          <a href="https://www.hostinger.com/" target="_blank" rel="noopener noreferrer" class="card coding-card"><span class="tool-name">Hostinger</span></a>
+          <a href="https://www.udemy.com/" target="_blank" rel="noopener noreferrer" class="card coding-card"><span class="tool-name">Udemy</span></a>
+          <a href="https://www.w3schools.com/" target="_blank" rel="noopener noreferrer" class="card coding-card"><span class="tool-name">W3Schools</span></a>
+          <a href="https://overapi.com/" target="_blank" rel="noopener noreferrer" class="card coding-card"><span class="tool-name">OverAPI</span></a>
+          <a href="https://www.hackerrank.com/" target="_blank" rel="noopener noreferrer" class="card coding-card"><span class="tool-name">HackerRank</span></a>
+          <a href="https://leetcode.com/" target="_blank" rel="noopener noreferrer" class="card coding-card"><span class="tool-name">LeetCode</span></a>
+          <a href="https://stackoverflow.com/" target="_blank" rel="noopener noreferrer" class="card coding-card"><span class="tool-name">Stack Overflow</span></a>
+          <a href="https://www.futurepedia.io/" target="_blank" rel="noopener noreferrer" class="card coding-card"><span class="tool-name">Futurepedia</span></a>
         </div>
       </section>
 
       <!-- Web Development -->
-      <section class="mb-16">
-        <h2 class="section-title text-3xl font-bold mb-6">🌐 Web Development</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" data-category="webdev">
-          <a href="https://getbootstrap.com/" target="_blank" class="card webdev-card p-6 rounded-xl"><span class="font-semibold">Bootstrap</span></a>
-          <a href="https://tailwindcss.com/docs/installation" target="_blank" class="card webdev-card p-6 rounded-xl"><span class="font-semibold">Tailwind CSS</span></a>
-          <a href="https://create-react-app.dev/" target="_blank" class="card webdev-card p-6 rounded-xl"><span class="font-semibold">React</span></a>
-          <a href="https://vitejs.dev/guide/" target="_blank" class="card webdev-card p-6 rounded-xl"><span class="font-semibold">Vite</span></a>
-          <a href="https://expressjs.com/" target="_blank" class="card webdev-card p-6 rounded-xl"><span class="font-semibold">Express.js</span></a>
-          <a href="https://github.com/mde/ejs/wiki/Using-EJS-with-Express" target="_blank" class="card webdev-card p-6 rounded-xl"><span class="font-semibold">EJS with Express</span></a>
+      <section id="webdev" class="bookmark-section mb-12">
+        <h2 class="section-title mb-5"><span class="emoji" aria-hidden="true">🌐</span> Web Development</h2>
+        <div class="tool-grid">
+          <a href="https://getbootstrap.com/" target="_blank" rel="noopener noreferrer" class="card webdev-card"><span class="tool-name">Bootstrap</span></a>
+          <a href="https://tailwindcss.com/docs/installation" target="_blank" rel="noopener noreferrer" class="card webdev-card"><span class="tool-name">Tailwind CSS</span></a>
+          <a href="https://react.dev/" target="_blank" rel="noopener noreferrer" class="card webdev-card"><span class="tool-name">React</span></a>
+          <a href="https://vitejs.dev/guide/" target="_blank" rel="noopener noreferrer" class="card webdev-card"><span class="tool-name">Vite</span></a>
+          <a href="https://expressjs.com/" target="_blank" rel="noopener noreferrer" class="card webdev-card"><span class="tool-name">Express.js</span></a>
+          <a href="https://github.com/mde/ejs/wiki/Using-EJS-with-Express" target="_blank" rel="noopener noreferrer" class="card webdev-card"><span class="tool-name">EJS with Express</span></a>
         </div>
       </section>
 
       <!-- Java -->
-      <section class="mb-16">
-        <h2 class="section-title text-3xl font-bold mb-6">☕ Java & Spring</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" data-category="java">
-          <a href="https://www.oracle.com/java/technologies/downloads/" target="_blank" class="card java-card p-6 rounded-xl"><span class="font-semibold">JDK Download</span></a>
-          <a href="https://spring.io/tools" target="_blank" class="card java-card p-6 rounded-xl"><span class="font-semibold">Spring Tool Suite</span></a>
-          <a href="https://mvnrepository.com/" target="_blank" class="card java-card p-6 rounded-xl"><span class="font-semibold">MVN repositary</span></a>
-          <a href="https://start.spring.io/" target="_blank" class="card java-card p-6 rounded-xl"><span class="font-semibold">Spring Initializr</span></a>
-          <a href="https://spring.io/" target="_blank" class="card java-card p-6 rounded-xl"><span class="font-semibold">Spring Framework</span></a>
-          <a href="https://docs.spring.io/spring-framework/reference/index.html" target="_blank" class="card java-card p-6 rounded-xl"><span class="font-semibold">Spring Docs</span></a>
-          <a href="https://portal.digitalpathshalanepal.com/dashboard?section=my-courses" target="_blank" class="card java-card p-6 rounded-xl"><span class="font-semibold">Digital Pathshala</span></a>
+      <section id="java" class="bookmark-section mb-12">
+        <h2 class="section-title mb-5"><span class="emoji" aria-hidden="true">☕</span> Java & Spring</h2>
+        <div class="tool-grid">
+          <a href="https://www.oracle.com/java/technologies/downloads/" target="_blank" rel="noopener noreferrer" class="card java-card"><span class="tool-name">JDK Download</span></a>
+          <a href="https://spring.io/tools" target="_blank" rel="noopener noreferrer" class="card java-card"><span class="tool-name">Spring Tool Suite</span></a>
+          <a href="https://mvnrepository.com/" target="_blank" rel="noopener noreferrer" class="card java-card"><span class="tool-name">Maven Repository</span></a>
+          <a href="https://start.spring.io/" target="_blank" rel="noopener noreferrer" class="card java-card"><span class="tool-name">Spring Initializr</span></a>
+          <a href="https://spring.io/" target="_blank" rel="noopener noreferrer" class="card java-card"><span class="tool-name">Spring Framework</span></a>
+          <a href="https://docs.spring.io/spring-framework/reference/index.html" target="_blank" rel="noopener noreferrer" class="card java-card"><span class="tool-name">Spring Docs</span></a>
+          <a href="https://portal.digitalpathshalanepal.com/dashboard?section=my-courses" target="_blank" rel="noopener noreferrer" class="card java-card"><span class="tool-name">Digital Pathshala</span></a>
         </div>
       </section>
 
-      <!-- Japanese -->
-      <section class="mb-16">
-        <h2 class="section-title text-3xl font-bold mb-6">🇯🇵 Japanese Resources</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" data-category="japanese">
-          <a href="https://www.jlpt.jp" target="_blank" class="card japanese-card p-6 rounded-xl"><span class="font-semibold">JLPT</span></a>
-          <a href="https://www.pearsonvue.com/jp/ja/bjt.html" target="_blank" class="card japanese-card p-6 rounded-xl"><span class="font-semibold">BJT exam</span></a>
-          <a href="https://aws.amazon.com/certification/certification-prep/testing/" target="_blank" class="card japanese-card p-6 rounded-xl"><span class="font-semibold"> Aws exam</span></a>
-          <a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000182528.html" target="_blank" class="card japanese-card p-6 rounded-xl"><span class="font-semibold">特定技能</span></a>
-          <a href="https://www3.jitec.ipa.go.jp/JitesCbt/index.html" target="_blank" class="card japanese-card p-6 rounded-xl"><span class="font-semibold">IT パスポート</span></a>
-          <a href="https://www.hellowork.mhlw.go.jp" target="_blank" class="card japanese-card p-6 rounded-xl"><span class="font-semibold">ハローワーク</span></a>
-          <a href="https://job.mynavi.jp" target="_blank" class="card japanese-card p-6 rounded-xl"><span class="font-semibold">マイナビ</span></a>
-          <a href="https://doda.jp" target="_blank" class="card japanese-card p-6 rounded-xl"><span class="font-semibold">DODA</span></a>
-          <a href="https://jp.indeed.com" target="_blank" class="card japanese-card p-6 rounded-xl"><span class="font-semibold">Indeed</span></a>
+      <!-- Exams & Careers in Japan -->
+      <section id="japan" class="bookmark-section mb-12">
+        <h2 class="section-title mb-5">Exams & Careers in Japan</h2>
+        <div class="tool-grid">
+          <a href="https://www.jlpt.jp/" target="_blank" rel="noopener noreferrer" class="card japanese-card"><span class="tool-name">JLPT</span></a>
+          <a href="https://www.pearsonvue.com/jp/ja/bjt.html" target="_blank" rel="noopener noreferrer" class="card japanese-card"><span class="tool-name">BJT Exam</span></a>
+          <a href="https://aws.amazon.com/certification/certification-prep/testing/" target="_blank" rel="noopener noreferrer" class="card japanese-card"><span class="tool-name">AWS Certification Exam</span></a>
+          <a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000182528.html" target="_blank" rel="noopener noreferrer" class="card japanese-card"><span class="tool-name" lang="ja">特定技能</span></a>
+          <a href="https://www3.jitec.ipa.go.jp/JitesCbt/index.html" target="_blank" rel="noopener noreferrer" class="card japanese-card"><span class="tool-name" lang="ja">IT パスポート</span></a>
+          <a href="https://www.hellowork.mhlw.go.jp/" target="_blank" rel="noopener noreferrer" class="card japanese-card"><span class="tool-name" lang="ja">ハローワーク</span></a>
+          <a href="https://job.mynavi.jp/" target="_blank" rel="noopener noreferrer" class="card japanese-card"><span class="tool-name" lang="ja">マイナビ</span></a>
+          <a href="https://doda.jp/" target="_blank" rel="noopener noreferrer" class="card japanese-card"><span class="tool-name">DODA</span></a>
+          <a href="https://jp.indeed.com/" target="_blank" rel="noopener noreferrer" class="card japanese-card"><span class="tool-name">Indeed</span></a>
         </div>
       </section>
 
-      <!-- General -->
-      <section class="mb-16">
-        <h2 class="section-title text-3xl font-bold mb-6">🌍 General Apps</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" data-category="general">
-          <a href="https://www.facebook.com" target="_blank" class="card general-card p-6 rounded-xl"><span class="font-semibold">Facebook</span></a>
-          <a href="https://www.tiktok.com" target="_blank" class="card general-card p-6 rounded-xl"><span class="font-semibold">TikTok</span></a>
-          <a href="https://www.amazon.co.jp" target="_blank" class="card general-card p-6 rounded-xl"><span class="font-semibold">Amazon JP</span></a>
-          <a href="https://www.mercari.com" target="_blank" class="card general-card p-6 rounded-xl"><span class="font-semibold">Mercari</span></a>
-          <a href="https://www.fiverr.com" target="_blank" class="card general-card p-6 rounded-xl"><span class="font-semibold">Fiverr</span></a>
-          <a href="https://crowdworks.jp" target="_blank" class="card general-card p-6 rounded-xl"><span class="font-semibold">CrowdWorks</span></a>
-          <a href="https://stackoverflow.com" target="_blank" class="card general-card p-6 rounded-xl"><span class="font-semibold">Stack Overflow</span></a>
-           <a href="https://www.futurepedia.io/" target="_blank" class="card ai-card p-6 rounded-xl"><span class="font-semibold">Futurepedia</span></a>
-          <a href="https://tver.jp" target="_blank" class="card japanese-card p-6 rounded-xl"><span class="font-semibold">TVer</span></a>
-          <a href="https://abema.tv" target="_blank" class="card japanese-card p-6 rounded-xl"><span class="font-semibold">ABEMA</span></a>
-          <a href="https://suumo.jp/" target="_blank" class="card japanese-card p-6 rounded-xl"><span class="font-semibold">SUUMO</span></a>
-        </div>
+      <!-- Entertainment -->
+      <section id="general" class="bookmark-section mb-12">
+        <h2 class="section-title mb-5"><span class="emoji" aria-hidden="true">🎬</span> Entertainment Platforms</h2>
+        <div class="tool-grid">
+          <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" class="card general-card"><span class="tool-name">Facebook</span></a>
+          <a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer" class="card general-card"><span class="tool-name">TikTok</span></a>
+          <a href="https://www.fiverr.com/" target="_blank" rel="noopener noreferrer" class="card general-card"><span class="tool-name">Fiverr</span></a>
+          <a href="https://crowdworks.jp/" target="_blank" rel="noopener noreferrer" class="card general-card"><span class="tool-name">CrowdWorks</span></a>
+          <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" class="card general-card"><span class="tool-name">YouTube</span></a>
         </div>
       </section>
+
     </div>
-
   </main>
 
-  <!-- Footer -->
-  <footer class="bg-gray-900/50 py-8 text-center text-gray-400 border-t border-purple-800/30">
-    <p>&copy; <span id="year"></span> Aman Chaudhary. All Rights Reserved.</p>
-    <div class="flex justify-center gap-6 mt-4">
-      <a href="https://github.com/Amanchaudary" target="_blank" class="hover:text-purple-400"><i class="bi bi-github text-2xl"></i></a>
-      <a href="https://www.tiktok.com/@chaudhary.aman.511" target="_blank" class="hover:text-purple-400"><i class="bi bi-tiktok text-2xl"></i></a>
-    </div>
-  </footer>
-
   <!-- Back to Top Button -->
-  <button id="backToTop" onclick="scrollToTop()"><i class="bi bi-arrow-up"></i></button>
+  <button type="button" id="backToTop" aria-label="Back to top"><i class="bi bi-arrow-up" aria-hidden="true"></i></button>
 
   <script src="script.js"></script>
 </body>
